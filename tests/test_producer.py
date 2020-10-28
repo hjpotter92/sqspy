@@ -1,24 +1,9 @@
-from unittest import TestCase
 from urllib.parse import urlparse
 
-from faker import Faker
-
-from sqspy import Producer
-from .config import TestConfig
+from .base_test_case import BaseTestCase, Producer
 
 
-class ProducerTestCase(TestCase):
-    def setUp(self) -> None:
-        self.fake = Faker()
-
-    @staticmethod
-    def get_producer(queue_name: str) -> Producer:
-        return Producer(
-            queue_name=queue_name,
-            endpoint_url=TestConfig.endpoint_url,
-            region_name=TestConfig.region_name,
-        )
-
+class ProducerTestCase(BaseTestCase):
     def test_queue_creation(self):
         queue_name = self.fake.pystr(max_chars=10)
         producer = self.get_producer(queue_name)
