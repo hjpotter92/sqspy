@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from botocore.exceptions import EndpointConnectionError
+from botocore.exceptions import NoRegionError
 
 from sqspy import Consumer
 from sqspy._base import Base
@@ -16,7 +16,7 @@ class ConnectionTestCase(TestCase):
 
     def test_connection_error(self):
         self.assertRaises(
-            EndpointConnectionError,
+            NoRegionError,
             Consumer,
             "queue_name",
             region_name=None,
