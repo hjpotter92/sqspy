@@ -1,10 +1,9 @@
+import json
+import logging
+import sys
 from abc import ABCMeta, abstractmethod
 from time import sleep
 from typing import Dict, List
-import json
-import logging
-import os
-import sys
 
 from ._base import Base
 from .producer import Producer

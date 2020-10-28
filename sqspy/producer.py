@@ -1,6 +1,6 @@
 import json
 import logging
-import os
+from typing import Dict
 
 from ._base import Base
 
@@ -21,7 +21,8 @@ class Producer(Base):
             "visibility_timeout": kwargs.get("visibility_timeout"),
         }
         self._queue = queue or self.get_or_create_queue(
-            queue_data, create_queue=kwargs.get("create_queue"),
+            queue_data,
+            create_queue=kwargs.get("create_queue"),
         )
         if self.queue is None:
             raise ValueError(

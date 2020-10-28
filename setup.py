@@ -1,24 +1,18 @@
-# To use a consistent encoding
-from codecs import open
 from pathlib import Path
+
 from setuptools import setup, find_packages
 
 import sqspy.about as about
 
-
 here = Path.cwd()
 readme = here / "README.md"
-
-# Get the long description from the README file
-with readme.open() as f:
-    long_description = f.read()
 
 
 setup(
     name=about.NAME,
     version=about.VERSION,
     description="AWS SQS utility package for producing and consuming messages",
-    long_description=long_description,
+    long_description=readme.read_text(),
     long_description_content_type="text/markdown",
     url="https://github.com/hjpotter92/sqspy",
     author=about.AUTHOR.get("name"),

@@ -1,6 +1,5 @@
-from os import getenv
-from typing import Dict
 import logging
+from typing import Dict
 
 import boto3
 import boto3.session
@@ -34,7 +33,9 @@ class Base:
 
     def get_or_create_queue(self, queue_data: Dict, create_queue: bool = True):
         queue_name = queue_data.get("name")
-        queue_visibility: str = queue_data.get("visibility_timeout") or self.QUEUE_VISIBILITY_TIMEOUT
+        queue_visibility: str = (
+                queue_data.get("visibility_timeout") or self.QUEUE_VISIBILITY_TIMEOUT
+        )
         queue = self.get_queue(queue_data)
         if queue is not None:
             return queue
