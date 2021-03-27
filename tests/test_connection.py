@@ -1,13 +1,14 @@
 from unittest import TestCase
 
 from botocore.exceptions import (
+    EndpointConnectionError,
     NoCredentialsError,
     NoRegionError,
-    EndpointConnectionError,
 )
 
 from sqspy import Consumer
 from sqspy._base import Base
+
 from .config import TestConfig
 
 

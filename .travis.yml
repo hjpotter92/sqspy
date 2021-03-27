@@ -1,22 +1,29 @@
-sudo: false
+dist: focal
+os: linux
 language: python
+cache: pip
+
 services:
   - docker
-cache:
-  directories:
-    - "$HOME/.cache/pip"
-    - "$HOME/.pyenv"
+
 python:
   - "3.6"
   - "3.7"
   - "3.8"
+  - "3.9"
+  - "3.10-dev"
   - "pypy3"
-  - "nightly"  # nightly build
+  - "nightly"
+
 before_install:
   - docker run -d -p 127.0.0.1:4100:4100 pafortin/goaws
+
 install:
   - pip install -U boto3 codecov -r requirements-test.txt
+
 script:
   - coverage run -m pytest
+  - coverage report -m
+
 after_success:
   - codecov

@@ -1,6 +1,9 @@
 from unittest import TestCase
+
 from faker import Faker
+
 from sqspy import Consumer, Producer
+
 from .config import TestConfig
 
 
