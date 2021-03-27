@@ -11,11 +11,12 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 # import os
-import pathlib
+from pathlib import Path
 import sys
 
-sys.path.insert(0, str(pathlib.Path.cwd().parent.absolute()))
-sys.path.insert(0, str(pathlib.Path.cwd().absolute()))
+conf_path = Path(__file__).resolve().absolute().parent
+sys.path.insert(0, str(conf_path.parent.absolute()))
+sys.path.insert(0, str(conf_path.absolute()))
 from sqspy.about import VERSION
 
 # -- Project information -----------------------------------------------------
