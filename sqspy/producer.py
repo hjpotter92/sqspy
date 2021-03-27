@@ -38,9 +38,10 @@ class Producer(Base):
             "url": queue_url,
             "visibility_timeout": kwargs.get("visibility_timeout"),
         }
+        create_queue: bool = bool(kwargs.get("create_queue", True))
         self._queue = queue or self.get_or_create_queue(
             queue_data,
-            create_queue=bool(kwargs.get("create_queue")),
+            create_queue=create_queue,
         )
         if self.queue is None:
             raise ValueError(
@@ -51,10 +52,12 @@ class Producer(Base):
 
     @property
     def queue(self):
+        """See :attr:`~sqspy.consumer.Consumer.queue`"""
         return self._queue
 
     @property
-    def queue_name(self):
+    def queue_name(self) -> str:
+        """See :attr:`~sqspy.consumer.Consumer.queue_name`"""
         return self._queue_name
 
     def publish(self, message: Any, **kwargs):

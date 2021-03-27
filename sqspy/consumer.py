@@ -35,8 +35,7 @@ class Consumer(Base):
     :param int poll_interval: Polling interval between messages.
         Defaults to :attr:`poll_interval`.
     :param list[str] message_attribute_names: List of attributes for
-        message to fetch.  See
-        :attr:`SQS.Message.message_attributes`.
+        message to fetch.  See :attr:`SQS.Message.message_attributes`.
     :param int wait_time: Time to wait (in seconds) when fetching
         messages.  Defaults to :attr:`wait_time`.
     :param bool force_delete: Whether to delete the message from queue
@@ -123,10 +122,7 @@ class Consumer(Base):
     @property
     def queue_name(self) -> str:
         """
-        Name of the queue.
-
-        :returns: Name of the queue from where consumer is fetching
-                  messages.
+        Base name of the connected Queue resource.
 
         :rtype: str
         """
@@ -137,8 +133,6 @@ class Consumer(Base):
         """
         The Queue resource for when messages were not processed
         correctly.
-
-        :returns:
 
         :rtype: SQS.Queue
         """
@@ -154,9 +148,8 @@ class Consumer(Base):
 
         :returns: A list of message resources.
 
-        :rtype: list(SQS.Message)
+        :rtype: list[SQS.Message]
         """
-
         while True:
             messages = self._queue.receive_messages(
                 AttributeNames=self._attribute_names,

@@ -18,16 +18,16 @@ from pathlib import Path
 conf_path = Path(__file__).resolve().absolute().parent
 sys.path.insert(0, str(conf_path.parent.absolute()))
 sys.path.insert(0, str(conf_path.absolute()))
-from sqspy.about import VERSION
+import sqspy.about as about
 
 # -- Project information -----------------------------------------------------
 
-project = "sqspy"
+project = about.NAME
 copyright = "2021, hjpotter92"
-author = "hjpotter92"
+author = about.AUTHOR["name"]
 
 # The full version, including alpha/beta/rc tags
-release = VERSION
+release = about.VERSION
 
 
 # -- General configuration ---------------------------------------------------

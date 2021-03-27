@@ -1,7 +1,10 @@
-================
+============
 Introduction
-================
+============
 
+.. image:: https://codecov.io/gh/hjpotter92/sqspy/branch/master/graph/badge.svg?token=6XLSO7NPF9
+   :target: https://codecov.io/gh/hjpotter92/sqspy
+   :alt: Code coverage
 .. image:: https://pyup.io/repos/github/hjpotter92/sqspy/shield.svg
    :target: https://pyup.io/repos/github/hjpotter92/sqspy/
    :alt: Updates
@@ -20,14 +23,14 @@ inspired from the `the pySqsListener
 <https://pypi.org/project/pySqsListener/>`_ package.
 
 Install
-========
+=======
 
 .. code-block:: shell
 
    pip install sqspy
 
 Usage
-========
+=====
 
 .. code-block:: python
 
@@ -43,7 +46,7 @@ Usage
 More documentation coming soon.
 
 Why
-========
+===
 
 The mentioned project had a few issues which I faced while trying to
 implement at my organisation. The local environment testing setup was

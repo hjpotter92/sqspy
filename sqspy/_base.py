@@ -24,6 +24,9 @@ class Base:
     :param str endpoint_url: Custom endpoint URL for usage.
     """
 
+    #: Message's visibility timeout in seconds. See `Visibility Timeout
+    #: <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html>`_
+    #: in *Amazon Simple Queue Service Developer Guide* for more information.
     QUEUE_VISIBILITY_TIMEOUT: str = "600"
 
     def __init__(self, **kwargs):
@@ -58,14 +61,12 @@ class Base:
         credentials as dictated by the `create_queue` parameter if the
         resource was not located.
 
-        :param queue_data: Dictionary referencing parameters for the
-            queue to be retrieved or created.
+        :param dict[str,str] queue_data: Dictionary referencing
+            parameters for the queue to be retrieved or created.
 
             The keys for the data are: `name`, `url` and
             `visibility_timeout`.  The visibility_timeout defaults to
             :const:`QUEUE_VISIBILITY_TIMEOUT`.
-
-        :type queue_data: Dict[str, str]
 
         :param bool create_queue: Force creation of queue resource on
             AWS.  Default is `True`
@@ -95,8 +96,8 @@ class Base:
     def get_queue(self, queue_data: Dict[str, str]):
         """Retrieve the Queue resource based on provided parameters.
 
-        :param queue_data: Same as :meth:`get_or_create_queue`
-        :type queue_data: Dict[str, str]
+        :param dict[str,str] queue_data: Same as used for
+            :meth:`get_or_create_queue`
 
         :returns:
         """
@@ -119,9 +120,8 @@ class Base:
 
         :param str name: Sent as the `QueueName` to the boto3 method.
 
-        :param attributes: Same as parameter `Attributes` to
-            :meth:`~SQS.ServiceResource.create_queue`
-        :type attributes: Dict[str, str]
+        :param dict[str,str] attributes: Same as parameter
+            `Attributes` to :meth:`~SQS.ServiceResource.create_queue`
 
         :returns: A Queue resource
 
