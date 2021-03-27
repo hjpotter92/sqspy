@@ -63,7 +63,7 @@ class Base:
 
             The keys for the data are: `name`, `url` and
             `visibility_timeout`.  The visibility_timeout defaults to
-            :py:const:`QUEUE_VISIBILITY_TIMEOUT`.
+            :const:`QUEUE_VISIBILITY_TIMEOUT`.
 
         :type queue_data: Dict[str, str]
 
@@ -72,7 +72,7 @@ class Base:
 
         :returns: An `Queue` resource on success, `None` otherwise.
 
-        :rtype: :py:class:`SQS.Queue` or None
+        :rtype: SQS.Queue or None
         """
         queue_name = queue_data.get("name", "")
         queue_visibility: str = (
@@ -95,7 +95,7 @@ class Base:
     def get_queue(self, queue_data: Dict[str, str]):
         """Retrieve the Queue resource based on provided parameters.
 
-        :param queue_data: Same as :py:meth:`get_or_create_queue`
+        :param queue_data: Same as :meth:`get_or_create_queue`
         :type queue_data: Dict[str, str]
 
         :returns:
@@ -115,17 +115,17 @@ class Base:
         """Create a Queue resource.
 
         For more information, check
-        :py:meth:`SQS.ServiceResource.create_queue`
+        :meth:`SQS.ServiceResource.create_queue`
 
         :param str name: Sent as the `QueueName` to the boto3 method.
 
         :param attributes: Same as parameter `Attributes` to
-            :py:meth:`~SQS.ServiceResource.create_queue`
+            :meth:`~SQS.ServiceResource.create_queue`
         :type attributes: Dict[str, str]
 
         :returns: A Queue resource
 
-        :rtype: :py:class:`SQS.Queue`
+        :rtype: SQS.Queue
         """
 
         return self._sqs.create_queue(QueueName=name, Attributes=attributes)

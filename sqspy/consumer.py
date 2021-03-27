@@ -21,7 +21,7 @@ class Consumer(Base):
     :param SQS.Queue queue: Optional queue resource.
     :param str visibility_timeout: Message visibility timeout in
         seconds, but as a string value.  Defaults to
-        :py:const:`~sqspy._base.Base.QUEUE_VISIBILITY_TIMEOUT`
+        :const:`~sqspy._base.Base.QUEUE_VISIBILITY_TIMEOUT`
     :param str error_queue: Name for error queue, when messages were
         not consumed successfully.
     :param str error_queue_url: Queue url as per AWS guidelines, for
@@ -29,24 +29,26 @@ class Consumer(Base):
     :param str error_visibility_timeout: Same as `visibility_timeout`
         but for error queue.
     :param bool create_queue: Set to `False` if the queue should not
-        be created in case it does not exist.
+        be created in case it does not exist.  The default is `True`.
     :param bool create_error_queue: Same as `create_queue` but for
-        error queue.
-    :param int poll_interval: Polling interval between messages.  Defaults
-        to :attr:`poll_interval`.
+        error queue.  The default is `True`.
+    :param int poll_interval: Polling interval between messages.
+        Defaults to :attr:`poll_interval`.
     :param list[str] message_attribute_names: List of attributes for
         message to fetch.  See
-        :py:attr:`SQS.Message.message_attributes`.
+        :attr:`SQS.Message.message_attributes`.
     :param int wait_time: Time to wait (in seconds) when fetching
         messages.  Defaults to :attr:`wait_time`.
     :param bool force_delete: Whether to delete the message from queue
         before handling or not.  Defaults to False.
-    :param int max_messages_count: Maximum message count when
-        fetching from the queue.  Defaults to
-        :attr:`max_messages_count`.
+    :param int max_messages_count: Maximum message count when fetching
+        from the queue.  Defaults to :attr:`max_messages_count`.
     :param list[str] attribute_names: Attributes to be retrieved along
         with message when fetching.  See more at:
-        :py:meth:`SQS.Queue.receive_messages`
+        :meth:`SQS.Queue.receive_messages`
+
+    :raises ValueError: At least one of `queue`, `queue_url` or
+        `queue_name` has to be provided.
     """
 
     __metaclass__ = ABCMeta
@@ -114,7 +116,7 @@ class Consumer(Base):
         """
         The connected Queue resource.
 
-        :rtype: :py:class:`SQS.Queue`
+        :rtype: SQS.Queue
         """
         return self._queue
 
@@ -138,7 +140,7 @@ class Consumer(Base):
 
         :returns:
 
-        :rtype: :py:class:`SQS.Queue`
+        :rtype: SQS.Queue
         """
         return self._error_queue
 
