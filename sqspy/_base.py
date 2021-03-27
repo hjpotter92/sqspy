@@ -1,5 +1,5 @@
 import logging
-from typing import Dict
+from typing import Any, Dict
 
 import boto3
 import boto3.session
@@ -8,7 +8,23 @@ sqspy_logger = logging.getLogger("sqspy")
 
 
 class Base:
-    QUEUE_VISIBILITY_TIMEOUT = "600"
+    """Base class initialisation to setup aws credentials.
+
+    To make use of instance roles when deploying to AWS
+    infrastructure, leave the `aws_*` keys blank (`None`).
+
+    :param str aws_access_key_id: AWS access key credential.
+
+    :param str aws_secret_access_key: AWS access key credential.
+
+    :param str profile_name: Local AWS credential profile name.
+
+    :param str region_name: AWS region for resources.
+
+    :param str endpoint_url: Custom endpoint URL for usage.
+    """
+
+    QUEUE_VISIBILITY_TIMEOUT: str = "600"
 
     def __init__(self, **kwargs):
         aws_access_key_id = kwargs.get("aws_access_key_id")
@@ -31,10 +47,36 @@ class Base:
         )
         sqspy_logger.debug("Initialised SQS resource")
 
-    def get_or_create_queue(self, queue_data: Dict, create_queue: bool = True):
-        queue_name = queue_data.get("name")
+    def get_or_create_queue(
+        self,
+        queue_data: Dict[str, str],
+        create_queue: bool = True,
+    ):
+        """Fetch or create the sqs Queue resource from boto3.
+
+        Also tries to create the queue resource with the configured
+        credentials as dictated by the `create_queue` parameter if the
+        resource was not located.
+
+        :param queue_data: Dictionary referencing parameters for the
+            queue to be retrieved or created.
+
+            The keys for the data are: `name`, `url` and
+            `visibility_timeout`.  The visibility_timeout defaults to
+            :py:const:`QUEUE_VISIBILITY_TIMEOUT`.
+
+        :type queue_data: Dict[str, str]
+
+        :param bool create_queue: Force creation of queue resource on
+            AWS.  Default is `True`
+
+        :returns: An `Queue` resource on success, `None` otherwise.
+
+        :rtype: :py:class:`SQS.Queue` or None
+        """
+        queue_name = queue_data.get("name", "")
         queue_visibility: str = (
-                queue_data.get("visibility_timeout") or self.QUEUE_VISIBILITY_TIMEOUT
+            queue_data.get("visibility_timeout") or self.QUEUE_VISIBILITY_TIMEOUT
         )
         queue = self.get_queue(queue_data)
         if queue is not None:
@@ -50,7 +92,14 @@ class Base:
             queue_attributes["FifoQueue"] = "true"
         return self.create_queue(queue_name, queue_attributes)
 
-    def get_queue(self, queue_data: Dict):
+    def get_queue(self, queue_data: Dict[str, str]):
+        """Retrieve the Queue resource based on provided parameters.
+
+        :param queue_data: Same as :py:meth:`get_or_create_queue`
+        :type queue_data: Dict[str, str]
+
+        :returns:
+        """
         queue_url = queue_data.get("url")
         queue_name = queue_data.get("name")
         if queue_url:
@@ -62,5 +111,21 @@ class Base:
         sqspy_logger.warning("Queue not found.")
         return None
 
-    def create_queue(self, name: str, attributes: Dict):
+    def create_queue(self, name: str, attributes: Dict[str, Any]):
+        """Create a Queue resource.
+
+        For more information, check
+        :py:meth:`SQS.ServiceResource.create_queue`
+
+        :param str name: Sent as the `QueueName` to the boto3 method.
+
+        :param attributes: Same as parameter `Attributes` to
+            :py:meth:`~SQS.ServiceResource.create_queue`
+        :type attributes: Dict[str, str]
+
+        :returns: A Queue resource
+
+        :rtype: :py:class:`SQS.Queue`
+        """
+
         return self._sqs.create_queue(QueueName=name, Attributes=attributes)

@@ -7,7 +7,7 @@ NAME = "sqspy"
 
 AUTHOR = MAINTAINER = {
     "name": "hjpotter92",
-    "email": "hjpotter92+pypi@gmail.com",
+    "email": f"{NAME}@pypi.hjpotter92.email",
 }
 
 AUTHORS = MAINTAINERS = (f"{AUTHOR.get('name')} <{AUTHOR.get('email')}>",)

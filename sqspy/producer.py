@@ -15,7 +15,7 @@ class Producer(Base):
                 "One of `queue`, `queue_name` or `queue_url` should be provided"
             )
         super().__init__(**kwargs)
-        queue_data: Dict = {
+        queue_data: Dict[str, str] = {
             "name": queue_name,
             "url": queue_url,
             "visibility_timeout": kwargs.get("visibility_timeout"),
@@ -29,7 +29,7 @@ class Producer(Base):
                 "No queue found with name or URL provided, or "
                 "application did not have permission to create one."
             )
-        self._queue_name = self._queue.url.split("/")[-1]
+        self._queue_name = self.queue.url.split("/")[-1]
 
     @property
     def queue(self):

@@ -11,6 +11,9 @@ Introduction
 .. image:: https://travis-ci.com/hjpotter92/sqspy.svg?branch=master
    :target: https://travis-ci.com/hjpotter92/sqspy
    :alt: Build status
+.. image:: https://img.shields.io/lgtm/grade/python/g/hjpotter92/sqspy.svg?logo=lgtm&logoWidth=18
+   :target: https://lgtm.com/projects/g/hjpotter92/sqspy/context:python
+   :alt: Language grade:: Python
 
 A more pythonic approach to SQS producer/consumer utilities. Heavily
 inspired from the `the pySqsListener
