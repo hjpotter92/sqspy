@@ -12,9 +12,8 @@ Welcome to sqspy's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   modules
-
-
+   changelog
+   sqspy
 
 Indices and tables
 ==================

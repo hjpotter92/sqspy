@@ -11,7 +11,7 @@ class Base:
     """Base class initialisation to setup aws credentials.
 
     To make use of instance roles when deploying to AWS
-    infrastructure, leave the `aws_*` keys blank (`None`).
+    infrastructure, leave the `aws_*` keys blank (``None``).
 
     :param str aws_access_key_id: AWS access key credential.
 
@@ -127,5 +127,4 @@ class Base:
 
         :rtype: SQS.Queue
         """
-
         return self._sqs.create_queue(QueueName=name, Attributes=attributes)
